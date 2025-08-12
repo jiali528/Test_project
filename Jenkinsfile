@@ -1,25 +1,45 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: python
+    image: python:3.11
+    command:
+    - cat
+    tty: true
+"""
+        }
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                   url: 'git@github.com:jiali528/Test_project.git',  
-                   credentialsId: 'github-ssh-key'
+                container('python') {
+                    git branch: 'main',
+                       url: 'git@github.com:jiali528/Test_project.git',
+                       credentialsId: 'github-ssh-key'
+                }
             }
         }
 
         stage('Setup') {
             steps {
-                sh 'python3 -m venv venv'
-                sh '. venv/bin/activate && pip install -r requirements.txt'
+                container('python') {
+                    sh 'python3 -m venv venv'
+                    sh '. venv/bin/activate && pip install -r requirements.txt'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh '. venv/bin/activate && pytest test_app.py'
+                container('python') {
+                    sh '. venv/bin/activate && pytest test_app.py'
+                }
             }
         }
     }
@@ -33,3 +53,4 @@ pipeline {
         }
     }
 }
+
