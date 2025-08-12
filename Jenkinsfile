@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                   url 'git@github.com:jiali528/Test_project.git',  
+                   url: 'git@github.com:jiali528/Test_project.git',  
                    credentialsId: 'github-ssh-key'
             }
         }
