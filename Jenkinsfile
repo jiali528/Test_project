@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/jiali528/Test_project'  // 替换为你的仓库地址
+                git branch: 'main',
+                   url 'git@github.com:jiali528/Test_project.git',  
+                   credentialsId: 'github-ssh-key'
             }
         }
 
