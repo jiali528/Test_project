@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourusername/test-app.git'  // 替换为你的仓库地址
+                git 'https://github.com/jiali528/Test_project'  // 替换为你的仓库地址
             }
         }
 
