@@ -20,7 +20,7 @@ spec:
             steps {
                 container('python') {
                     git branch: 'main',
-                       url: 'git@github.com:jiali528/Test_project.git',
+                       url: 'git@github.com:jiali528/Test_project',
                        credentialsId: 'github-ssh-key'
                 }
             }
